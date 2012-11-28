@@ -1,22 +1,16 @@
-class CardSwipe
-
   require 'serialport'
   require 'rubygems'
+  require 'pg'
+
+  cardSwipe = SerialPort.new "/dev/ttyAMA0", 9600
   
-  def readCard
-    
-    sp=SerialPort.new "/dev/ttyAMA0", 9600
-    
-    #puts "HELLO"
-    
-    while sp.read
-      sp.read_timeout = 100
-      str1 = [sp.read].pack('H*')
-      sp.write str1
-      @data= str1
-    end
-    sp.close
-    
+  puts "HELLO"
+  
+  cardSwipe.write "FLEAAAAAAZ"  
+
+  while cardSwipe.read
+    cardSwipe.read_timeout = 100
+    cardData = [cardSwipe.read].pack('H*')
+    cardSwipe.write cardData
   end
-  
-end
+  cardSwipe.close

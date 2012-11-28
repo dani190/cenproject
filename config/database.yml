@@ -1,15 +1,19 @@
-development:
+common: &common
   adapter: postgresql
-  encoding: unicode
-  database: cencolproject_development
-  pool: 5
-  username: postgres
-  password:
+  encoding: utf8
+  pool: 50
+
+development:
+  <<: *common
+  database: cencolproject
+  host: 10.0.5.39
+  username: pi
+  password: raspberry
 
 production:
-  adapter: postgresql
-  encoding: unicode
-  database: cencolproject_production
-  pool: 5
-  username: cencolproject
-  password:
+  <<: *common
+  database: cencolproject
+  host: 10.0.5.39
+  username: pi
+  password: raspberry
+

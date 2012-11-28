@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  student_number: MyString
+  first_name: MyString
+  last_name: MyString
+  pushover_user: MyString
+  pushover_token: MyString
+
+two:
+  student_number: MyString
+  first_name: MyString
+  last_name: MyString
+  pushover_user: MyString
+  pushover_token: MyString
