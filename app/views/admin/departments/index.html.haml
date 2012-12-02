@@ -1,0 +1,16 @@
+%div.container-type-1
+  %h2 Departments
+  = link_to "Add New Department", "/admin/departments/new", :class => 'admin-button-type-1'
+  
+  %div.admin-table
+    %div.admin-table-header
+      %p.table-text.student-number-header.bold # In Queue
+      %p.table-text.student-number-header.bold Department Name
+      %p.table-text.last-name-header.bold Desk
+    - @departments.each do |department|
+      %div.admin-table-line-item
+        %p.table-text.student-number-text= QueuedStudent.count(:all, :conditions => ['department = ?', department.name])
+        %p.table-text.student-number-text= department.name
+        %p.table-text.last-name-text= department.desk
+        //= link_to "student card", admin_student_path(student), :class => 'admin-button-type-2'
+        = link_to "modify", edit_admin_department_path(department), :class => 'admin-button-type-2'

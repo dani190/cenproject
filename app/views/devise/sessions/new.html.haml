@@ -1,0 +1,12 @@
+%div.container-type-1
+  %h2 Admin Sign In
+  %div
+    = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+      %div.input-container
+        = f.label :email
+        = f.email_field :email
+      %div.input-container
+        = f.label :password
+        = f.password_field :password 
+      %div= f.submit "sign in", :class => 'admin-button-type-1'
+    = link_to 'forgot your password?', '/admin/password/new', :class => 'form-links'

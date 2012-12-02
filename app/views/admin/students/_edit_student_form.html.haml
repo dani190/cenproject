@@ -1,0 +1,19 @@
+%div.admin-form
+  = form_for([:admin, @new_student]) do |f|
+    %div.input-container
+      = f.label :first_name
+      = f.text_field :first_name
+    %div.input-container
+      = f.label :last_name
+      = f.text_field :last_name
+    %div.input-container
+      = f.label :student_number
+      = f.email_field :student_number
+    %div.input-container
+      = f.label :push_user
+      = f.text_field :pushover_user
+    %div.input-container
+      = f.label :push_token
+      = f.text_field :pushover_token
+    %div.buttontop.floatright
+      = f.submit "update", :class => 'admin-button-type-1'

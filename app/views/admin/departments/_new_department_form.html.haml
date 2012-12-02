@@ -1,0 +1,10 @@
+%div.admin-form
+  = form_for([:admin, @new_department]) do |f|
+    %div.input-container
+      = f.label :name
+      = f.text_field :name
+    %div.input-container
+      = f.label :desk
+      = f.text_field :desk
+    %div.buttontop.floatright
+      = f.submit "add", :class => 'admin-button-type-1'

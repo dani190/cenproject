@@ -1,8 +1,7 @@
 class PagesController < ApplicationController
   
   def index
-   #@read = CardSwipe.readCard(@data)
-   #load('/app/models/card_swipe.rb') 
+    @queued_students = QueuedStudent.all
   end
   
 end

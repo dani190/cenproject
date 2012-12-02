@@ -11,7 +11,7 @@ ActiveRecord::Base.establish_connection ({
   :database => "cencolproject"})
 
 
-@cardSwipe = SerialPort.new "/dev/ttyAMA0", 9600
+@cardSwipe = SerialPort.new "/dev/tty.SerialPortAD", 9600
 
 
 class Student < ActiveRecord::Base
@@ -35,8 +35,20 @@ while @cardSwipe
   end
 
   if hasData == true
-    @addToCue = Student.new(:student_number => @cardData)
-    @addToCue.save
+    #@addToCue = Student.new(:student_number => @cardData)
+    student = Student.find_by_student_number(@cardData)
+    if student
+      if QueuedStudent.exists?
+        clid = QueuedStudent.last.id + 1
+      else
+        clid = 1
+      end
+      @addToCue = QueuedStudents.new(:student_number => student.student_number, :first_name => student.first_name, :last_name => student.last_name, :department => 'Enrollment', :position => clid)
+      @addToCue.save
+    else
+      puts "Student not found"
+    end
+    
     puts "Student Number: " + @cardData.to_s
     puts " "
     puts "Welcome to Centnniel College, Please swipe your card."

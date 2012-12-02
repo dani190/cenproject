@@ -1,0 +1,15 @@
+%div.container-type-1
+  = form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
+    = devise_error_messages!
+    %h2 Administrator Signup
+    %div.input-container
+      = f.label :email
+      = f.email_field :email
+    %div.input-container
+      = f.label :password
+      = f.password_field :password
+    %div.input-container
+      = f.label :confirm_password
+      = f.password_field :password_confirmation
+    %div.buttontop.floatright
+      = f.submit "register", :class => 'admin-button-type-1'
