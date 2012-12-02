@@ -18,22 +18,22 @@
   %div.navigation
     - if current_admin
       %div.nav-button-container
-        = link_to "", '/admin/sign_out', :method => :delete, :confirm => 'Are you sure you want to sign out?', :class => 'icon-list-alt icon-large nav-icon'
+        = link_to "", '/admin/sign_out', :method => :delete, :confirm => 'Are you sure you want to sign out?', :class => 'icon-signout icon-large nav-icon'
         %p Sign Out
       %div.nav-button-container
-        = link_to "", '/admin/students', :class => 'icon-list-alt icon-large nav-icon'
+        = link_to "", '/admin/students', :class => 'icon-group icon-large nav-icon'
         %p Student Database
       %div.nav-button-container
-        = link_to "", '/', :class => 'icon-list-alt icon-large nav-icon'
+        = link_to "", '/', :class => 'icon-reorder icon-large nav-icon'
         %p Live Queue
       %div.nav-button-container
-        = link_to "", '/admin/queue_student', :class => 'icon-list-alt icon-large nav-icon'
+        = link_to "", '/admin/queue_student', :class => 'icon-plus icon-large nav-icon'
         %p Add To Queue
       %div.nav-button-container
-        = link_to "", '/admin/departments', :class => 'icon-list-alt icon-large nav-icon'
+        = link_to "", '/admin/departments', :class => 'icon-info-sign icon-large nav-icon'
         %p Manage Departments
       %div.nav-button-container
-        = link_to "", '/', :class => 'icon-list-alt icon-large nav-icon'
+        = link_to "", '/', :class => 'icon-tasks icon-large nav-icon'
         %p Department Queue
       
     - else
