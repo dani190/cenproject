@@ -4,4 +4,12 @@ class PagesController < ApplicationController
     @queued_students = QueuedStudent.all
   end
   
+  def display
+    
+  end
+  
+  def department_queue
+    
+  end
+  
 end

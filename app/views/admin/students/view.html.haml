@@ -1,0 +1,11 @@
+%div.container-type-1
+  %h2 Student Card
+  
+  %div.student-card-container
+    %div.card-image
+      = image_tag('student.png')
+    %div.card-logo
+    %div.student-card-info
+      = @student.first_name
+      = @student.last_name
+      = @student.student_number

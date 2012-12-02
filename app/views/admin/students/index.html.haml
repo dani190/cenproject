@@ -2,6 +2,13 @@
   %h2 Student Database
   
   = link_to "Add New Student", "/admin/students/new", :class => 'admin-button-type-1'
+  %br
+  %h2 Find Student
+  = form_for(:view, :url => admin_students_view_path) do |f|
+    %div.input-container
+      = f.label "student #"
+      = f.text_field :student_number
+    = f.submit "find", :class => 'admin-button-type-1'
   
   %div.admin-table
     %div.admin-table-header

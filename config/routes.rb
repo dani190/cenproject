@@ -4,11 +4,14 @@ Cencolproject::Application.routes.draw do
   root :to => 'pages#index'
   
   match "/display" => "pages#display"
+  match "/department_queue" => "pages#department_queue"
+  match "/admin/students/view" => "admin/students#view"
   
   namespace :admin do
     root :to => 'main#index'
     resources :students
     resources :departments
+    resources :queued_students
   end
   
   match "/404", :to => "errors#e404"

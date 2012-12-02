@@ -1,0 +1,10 @@
+%div.admin-form
+  = form_for([:admin, @new_queued_student]) do |f|
+    %div.input-container
+      = f.label "student #"
+      = f.email_field :student_number
+    %div.input-container
+      = f.label :department
+      = f.collection_select(:department, Department.all, :id, :name, {}, {:class=>'admin-dropdown-type-1'})
+    %div.buttontop.floatright
+      = f.submit "add", :class => 'admin-button-type-1'
