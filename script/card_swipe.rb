@@ -3,6 +3,7 @@ require 'rubygems'
 require "net/https"
 require 'pg'
 require 'active_record'
+require 'twilio-ruby'
 
 ActiveRecord::Base.establish_connection ({
   :adapter => "postgresql",
@@ -52,21 +53,36 @@ while @cardSwipe
         end
         
         @addToQueue = QueuedStudent.new(:student_number => student.student_number, :first_name => student.first_name, :last_name => student.last_name, :department => 'Academics and Learning', :position => clid)
-
-        
-        
         @addToQueue.save
-        url = URI.parse("https://api.pushover.net/1/messages.json")
-        req = Net::HTTP::Post.new(url.path)
-        req.set_form_data({
-        :token => "U0p4nx4rEuAz1OluXrSI4gV42D5R4O",
-        :user => student.pushover_token,
-        :message => "Thank you " + student.first_name + " " + student.last_name + ", you have been entered into queue for " + ". You Will recieve another notification when you are 3rd in line."
-        })
-        res = Net::HTTP.new(url.host, url.port)
-        res.use_ssl = true
-        res.verify_mode = OpenSSL::SSL::VERIFY_PEER
-        res.start {|http| http.request(req) }
+        
+        
+        unless student.pushover_token
+          
+          url = URI.parse("https://api.pushover.net/1/messages.json")
+          req = Net::HTTP::Post.new(url.path)
+          req.set_form_data({
+          :token => "U0p4nx4rEuAz1OluXrSI4gV42D5R4O",
+          :user => student.pushover_token,
+          :message => "Thank you " + student.first_name + " " + student.last_name + ", you have been entered into queue for " + ". You Will recieve another notification when you are 3rd in line."
+          })
+          res = Net::HTTP.new(url.host, url.port)
+          res.use_ssl = true
+          res.verify_mode = OpenSSL::SSL::VERIFY_PEER
+          res.start {|http| http.request(req) }
+        
+        else
+        
+          account_sid = 'AC878d8986d14b1c01cf3e1f1788ab7f18'
+          auth_token = 'ccd3831f37cd3cfde7221ab36b384a47'
+          @sms_student = Twilio::REST::Client.new account_sid, auth_token
+          
+          @sms_student.account.sms.messages.create(
+            :from => '+16479315434',
+            :to => '+14168295958',
+            :body => 'Thank you " + student.first_name + " " + student.last_name + ", you have been entered into queue for " + ". You Will recieve another notification when you are 3rd in line.'
+          )
+        end
+
         puts "You have been added to the queue"
       end
     else
