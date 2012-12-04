@@ -1,2 +1,23 @@
 %div.container-type-1
   %h2 Department Queue
+  
+  - @departments.each do |department|
+    %h3.department-name= department.name
+    - @students_in_department = QueuedStudent.find_all_by_department(department.name)
+    %div.admin-table
+      %div.admin-table-header
+        %p.table-text.position-header.bold Position
+        %p.table-text.student-number-header.bold Student Number
+        %p.table-text.first-name-header.bold First Name
+        %p.table-text.last-name-header.bold Last Name
+      - if @students_in_department.length < 1
+        %div.admin-table-line-item
+          %p.table-text.position-text No students
+      - else
+        - @students_in_department.each do |student|
+          %div.admin-table-line-item
+            %p.table-text.position-text= student.position
+            %p.table-text.student-number-text= student.student_number
+            %p.table-text.first-name-text= student.first_name
+            %p.table-text.last-name-text= student.last_name
+            = link_to "checked in", admin_queued_student_path(student), :method => :delete, :confirm => "Checked In?", :class => 'admin-button-type-2'

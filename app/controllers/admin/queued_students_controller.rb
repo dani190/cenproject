@@ -19,7 +19,7 @@ class Admin::QueuedStudentsController < ApplicationController
         
         if QueuedStudent.exists?
           @lastID = QueuedStudent.last.id
-          clid = QueuedStudent.count(:conditions => ["id < ?", @lastID])
+          clid = QueuedStudent.count(:conditions => ["id <= ?", @lastID]) + 1
         else
           clid = 1
         end
@@ -38,6 +38,53 @@ class Admin::QueuedStudentsController < ApplicationController
       end
     end
 
+  end
+  
+  def update
+    @new_queued_student = QueuedStudent.find(params[:id])
+
+    respond_to do |format|
+      if @new_queued_student.update_attributes(params[:queued_student])
+        format.html { redirect_to '/department_queue', notice: 'Queued Student was successfully updated.' }
+      else
+        format.html { render action: "edit" }
+      end
+    end
+  end
+  
+  def destroy
+    @queued_student = QueuedStudent.find(params[:id])
+    @queued_student.destroy
+    QueuedStudent.update_all("position = position - 1")
+    
+    if QueuedStudent.count >= 3
+      @notify_this_student = QueuedStudent.where(:position => 3)
+      
+      @notify_this_student.each do |a|
+        @department_wanted = a.department
+        @a = a.student_number
+      end
+      @student = Student.find_by_student_number(@a)
+      student = Student.find_by_student_number(@a)
+      
+      require "net/https"
+      
+      url = URI.parse("https://api.pushover.net/1/messages.json")
+      req = Net::HTTP::Post.new(url.path)
+      req.set_form_data({
+        :token => "U0p4nx4rEuAz1OluXrSI4gV42D5R4O",
+        :user => student.pushover_token,
+        :message => student.first_name + " " + student.last_name + ", you are now 3rd in the queue for " + @department_wanted + ". Please make your way to the department now.",
+      })
+      res = Net::HTTP.new(url.host, url.port)
+      res.use_ssl = true
+      res.verify_mode = OpenSSL::SSL::VERIFY_PEER
+      res.start {|http| http.request(req) }
+    end
+    
+    respond_to do |format|
+      format.html { redirect_to '/department_queue', notice: 'Queued Student was successfully checked in.'}
+    end
   end
   
 end

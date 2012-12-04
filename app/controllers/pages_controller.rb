@@ -9,7 +9,8 @@ class PagesController < ApplicationController
   end
   
   def department_queue
-    
+    @departments = Department.order("name ASC").all
+    @queued_students = QueuedStudent.order("id ASC").all
   end
   
 end

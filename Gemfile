@@ -5,6 +5,7 @@ gem 'rails', '3.2.8'
 gem 'haml-rails'
 gem 'jquery-rails'
 gem 'inherited_resources', '~> 1.3.0'
+gem 'thin'
 
 #Database
 gem 'pg'

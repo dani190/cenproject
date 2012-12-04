@@ -68,7 +68,7 @@ while @cardSwipe
     else
         puts "You are not in the student database"
     end
-
+    puts " "
     puts "Welcome to Centnniel College, Please swipe your card."
 
   redo
