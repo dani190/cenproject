@@ -15,3 +15,9 @@ production:
   host: 192.168.1.101
   username: pi
   password: raspberry
+  
+#production:
+#  <<: *common
+#  database: cencolproject
+#  username: AdamChow
+#  password: dckyn25ac92IOS

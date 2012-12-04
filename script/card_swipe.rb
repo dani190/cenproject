@@ -43,7 +43,7 @@ while @cardSwipe
       else
         clid = 1
       end
-      @addToCue = QueuedStudents.new(:student_number => student.student_number, :first_name => student.first_name, :last_name => student.last_name, :department => 'Enrollment', :position => clid)
+      @addToCue = QueuedStudent.new(:student_number => student.student_number, :first_name => student.first_name, :last_name => student.last_name, :department => 'Enrollment', :position => "1")
       @addToCue.save
     else
       puts "Student not found"
