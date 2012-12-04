@@ -47,7 +47,7 @@ while @cardSwipe
 
         if QueuedStudent.exists?
           @lastID = QueuedStudent.last.id
-          clid = QueuedStudent.count(:conditions => ["id < ?", @lastID])
+          clid = QueuedStudent.count(:conditions => ["id < ?", @lastID]) + 1
         else
           clid = 1
         end
