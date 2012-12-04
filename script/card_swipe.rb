@@ -43,14 +43,18 @@ while @cardSwipe
       if QueuedStudent.find_by_student_number(@cardData.to_s)
         puts "You are already in Queue"
       else
-        @addToQueue = QueuedStudent.new(:student_number => student.student_number, :first_name => student.first_name, :last_name => student.last_name, :department => 'Academics and Learning', :position => "1")
-
+        
         if QueuedStudent.exists?
           @lastID = QueuedStudent.last.id
           clid = QueuedStudent.count(:conditions => ["id < ?", @lastID]) + 1
         else
           clid = 1
         end
+        
+        @addToQueue = QueuedStudent.new(:student_number => student.student_number, :first_name => student.first_name, :last_name => student.last_name, :department => 'Academics and Learning', :position => clid)
+
+        
+        
         @addToQueue.save
         url = URI.parse("https://api.pushover.net/1/messages.json")
         req = Net::HTTP::Post.new(url.path)
