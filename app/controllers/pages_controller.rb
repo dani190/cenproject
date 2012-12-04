@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
   
   def index
-    @queued_students = QueuedStudent.all
+    @queued_students = QueuedStudent.order("id ASC").all
   end
   
   def display
