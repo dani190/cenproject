@@ -96,20 +96,37 @@ class Admin::QueuedStudentsController < ApplicationController
       end
       @student = Student.find_by_student_number(@a)
       student = Student.find_by_student_number(@a)
-      
-      require "net/https"
-      
-      url = URI.parse("https://api.pushover.net/1/messages.json")
-      req = Net::HTTP::Post.new(url.path)
-      req.set_form_data({
+
+      if student.pushover_id == ""
+                  
+        #Twilio API (SMS Service)
+        account_sid = 'AC878d8986d14b1c01cf3e1f1788ab7f18'
+        auth_token = 'ccd3831f37cd3cfde7221ab36b384a47'
+        @sms_student = Twilio::REST::Client.new account_sid, auth_token
+
+        @sms_student.account.sms.messages.create(
+          :from => '+16479315434',
+          :to => student.phone_number,
+          :body => student.first_name + " " + student.last_name + ", you are now 3rd in the queue for " + @department_wanted + ". Please make your way to the department now."
+        )
+
+      else
+        
+        #Pushover API (iOS Push Notification Service)
+        url = URI.parse("https://api.pushover.net/1/messages.json")
+        req = Net::HTTP::Post.new(url.path)
+        req.set_form_data({
         :token => "U0p4nx4rEuAz1OluXrSI4gV42D5R4O",
         :user => student.pushover_id,
-        :message => student.first_name + " " + student.last_name + ", you are now 3rd in the queue for " + @department_wanted + ". Please make your way to the department now.",
-      })
-      res = Net::HTTP.new(url.host, url.port)
-      res.use_ssl = true
-      res.verify_mode = OpenSSL::SSL::VERIFY_PEER
-      res.start {|http| http.request(req) }
+        :message => student.first_name + " " + student.last_name + ", you are now 3rd in the queue for " + @department_wanted + ". Please make your way to the department now."
+        })
+        res = Net::HTTP.new(url.host, url.port)
+        res.use_ssl = true
+        res.verify_mode = OpenSSL::SSL::VERIFY_PEER
+        res.start {|http| http.request(req) }
+        
+      end
+
     end
     
     respond_to do |format|

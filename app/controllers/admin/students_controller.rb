@@ -15,10 +15,6 @@ class Admin::StudentsController < ApplicationController
     @student = Student.find(params[:id])
   end
   
-  def view
-    @student = Student.find_by_student_number(params[:view][:student_number])
-  end
-  
   def create
     @new_student = Student.new(params[:student])
     
