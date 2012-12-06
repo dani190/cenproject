@@ -52,8 +52,8 @@ ActiveRecord::Schema.define(:version => 20121130044659) do
     t.string   "student_number"
     t.string   "first_name"
     t.string   "last_name"
-    t.string   "pushover_user"
-    t.string   "pushover_token"
+    t.string   "phone_number"
+    t.string   "pushover_id"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
   end

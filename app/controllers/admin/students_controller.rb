@@ -21,13 +21,6 @@ class Admin::StudentsController < ApplicationController
   
   def create
     @new_student = Student.new(params[:student])
-
-
-    student.account.sms.messages.create(
-      :from => '+16479315434',
-      :to => '+14168295958',
-      :body => 'Hey there!'
-    )
     
     respond_to do |format|
       @new_student.save

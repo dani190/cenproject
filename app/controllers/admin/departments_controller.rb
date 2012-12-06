@@ -1,4 +1,6 @@
 class Admin::DepartmentsController < ApplicationController
+  before_filter :authenticate_admin!
+  respond_to :html
   
   def index
     @departments = Department.order("name ASC").all
@@ -40,6 +42,11 @@ class Admin::DepartmentsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to '/admin/departments', notice: 'Department was successfully deleted.' }
     end
+  end
+  
+  def queue
+    @departments = Department.order("name ASC").all
+    @queued_students = QueuedStudent.order("id ASC").all
   end
   
 end

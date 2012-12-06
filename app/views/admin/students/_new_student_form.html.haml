@@ -10,10 +10,10 @@
       = f.label "student #"
       = f.email_field :student_number
     %div.input-container
-      = f.label :push_user
-      = f.text_field :pushover_user
+      = f.label :phone_number
+      = f.text_field :phone_number
     %div.input-container
-      = f.label :push_token
-      = f.text_field :pushover_token
+      = f.label :push_id
+      = f.text_field :pushover_id
     %div.buttontop.floatright
       = f.submit "add", :class => 'admin-button-type-1'

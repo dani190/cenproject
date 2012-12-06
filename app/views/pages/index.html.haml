@@ -1,23 +1,8 @@
-//= javascript_include_tag :reloader
 %div.container-type-1
-  %h2 Live Queue
   
-  %div.admin-table
-    %div.admin-table-header
-      %p.table-text.position-header.bold Position
-      %p.table-text.department-header.bold Department
-      %p.table-text.student-number-header.bold Student Number
-      %p.table-text.first-name-header.bold First Name
-      %p.table-text.last-name-header.bold Last Name
-    - if @queued_students.length < 1
-      %div.admin-table-line-item
-        %p.table-text.position-text No students
-    - else
-      - @queued_students.each do |student|
-        %div.admin-table-line-item
-          %p.table-text.position-text= student.position
-          %p.table-text.department-text= student.department
-          %p.table-text.student-number-text= student.student_number
-          %p.table-text.first-name-text= student.first_name
-          %p.table-text.last-name-text= student.last_name
-          
+  %h2 Check your Position
+  = form_for(:queue, :url => "/queue") do |f|
+    %div.input-container
+      = f.label "student #"
+      = f.text_field :student_number
+    = f.submit "find", :class => 'admin-button-type-1'

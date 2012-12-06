@@ -1,16 +1,10 @@
 class PagesController < ApplicationController
   
   def index
-    @queued_students = QueuedStudent.order("id ASC").all
-  end
-  
-  def display
     
   end
   
-  def department_queue
-    @departments = Department.order("name ASC").all
-    @queued_students = QueuedStudent.order("id ASC").all
+  def queue
+    @queued_student = QueuedStudent.find_by_student_number(params[:queue][:student_number])
   end
-  
 end

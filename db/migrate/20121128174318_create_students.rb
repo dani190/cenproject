@@ -4,8 +4,8 @@ class CreateStudents < ActiveRecord::Migration
       t.string :student_number
       t.string :first_name
       t.string :last_name
-      t.string :pushover_user
-      t.string :pushover_token
+      t.string :phone_number
+      t.string :pushover_id
 
       t.timestamps
     end
